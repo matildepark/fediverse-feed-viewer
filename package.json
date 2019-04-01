@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "fast-average-color": "^4.3.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-safe-html": "^0.6.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {
