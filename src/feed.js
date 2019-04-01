@@ -8,15 +8,11 @@ components.br = ReactSafeHtml.components.createSimpleElement('br', {
     'tab-index': (index) => ['tabIndex', index],
 })
 
-
-// TODO
-// Add remote follow prompt
-// Allow the URL to set who the user is (will likely need router)
-
 class Feed extends Component {
     constructor() {
         super();
         this.state = {
+            handleCheck: false,
             author: {
                 name: '',
                 avatar: '',
@@ -61,12 +57,20 @@ class Feed extends Component {
                 }
             }
         }
-        request.open("GET", "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fsocial.sunshinegardens.org%2Fusers%2Fmatilde.atom&api_key=25jjeuoju8cuxc9ew3fpjqywgywvsxcu75hwy85w&count=30", true);
+        request.open("GET", "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2F"+ this.hosters +"%2Fusers%2F"+ this.username +".atom", true);
         request.send();
     }
 
     componentDidMount() {
-        this.Feed();
+        // Fediverse uses email formatting, so we use that regex here.
+        // It sets it into two groups for the RSS request and just refuses to load if you're being bad and not sending a real email/fediverse address.
+        const { handle } = this.props.match.params;
+        // eslint-disable-next-line
+        let handleRegExp = /^((?:(?:[\w`~!#$%^&*\-=+;:{}'|,?\/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?\/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?\/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)+")))@((?:[a-zA-Z\d\-]+(?:\.[a-zA-Z\d\-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]))$/i;
+        let handleCheck = handle.match(handleRegExp);
+        this.username = handle.replace(handleRegExp, "$1");
+        this.hosters = handle.replace(handleRegExp, "$2");
+        handleCheck ? this.Feed() : console.log("Bad handle: " + handleCheck);
     }
 
     render() {

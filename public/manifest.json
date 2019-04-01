@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Fediverse Feed",
+  "name": "Fediverse Feed Viewer",
   "icons": [
     {
       "src": "favicon.ico",
