@@ -67,10 +67,14 @@ class Feed extends Component {
         const { handle } = this.props.match.params;
         // eslint-disable-next-line
         let handleRegExp = /^((?:(?:[\w`~!#$%^&*\-=+;:{}'|,?\/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?\/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?\/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)+")))@((?:[a-zA-Z\d\-]+(?:\.[a-zA-Z\d\-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]))$/i;
-        let handleCheck = handle.match(handleRegExp);
+        let handleCheck = handleRegExp.test(handle);
         this.username = handle.replace(handleRegExp, "$1");
         this.hosters = handle.replace(handleRegExp, "$2");
-        handleCheck ? this.Feed() : console.log("Bad handle: " + handleCheck);
+        if (handleCheck) this.Feed()
+        else {
+            console.log("Bad handle: " + handleCheck);
+            this.props.history.push('/');
+        }
     }
 
     render() {
