@@ -51,14 +51,15 @@ class Feed extends Component {
                 })
                 // Feed content
                 for (let item in feedJson.feed.entry) {
-                    if (feedJson.feed.entry[item].content == "An object was deleted") continue
+                    if (feedJson.feed.entry[item].content === "An object was deleted") continue
                     let a = this.state.feed.slice();
+                    let xmlTimetoOurTime = Date.parse(feedJson.feed.entry[item].published)
+                    let postDate = new Date(xmlTimetoOurTime)
                     a[item] = {
-                        content: feedJson.feed.entry[item].content,
-                        date: feedJson.feed.entry[item].published,
+                        content: feedJson.feed.entry[item].content.toString(),
+                        date: postDate.toString(),
                         url: feedJson.feed.entry[item].link
                     };
-                    console.log(a)
                     this.setState({feed: a});
                 }
             }
