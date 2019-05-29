@@ -51,7 +51,8 @@ class Feed extends Component {
                 })
                 // Feed content
                 for (let item in feedJson.feed.entry) {
-                    if (feedJson.feed.entry[item].content === "An object was deleted") continue
+                    // eslint-disable-next-line
+                    if (feedJson.feed.entry[item].content == "An object was deleted") continue
                     let a = this.state.feed.slice();
                     let xmlTimetoOurTime = Date.parse(feedJson.feed.entry[item].published)
                     let postDate = new Date(xmlTimetoOurTime)
@@ -87,6 +88,7 @@ class Feed extends Component {
     render() {
         return (
             <div className="feedContainer">
+                <div className="breadCrumbs"><a href="/">Home</a> -> {this.state.author.name}@{this.state.author.host}</div>
             <div className="header">
             <img alt="avatar" src={this.state.author.avatar}/>
                 <h2>{this.state.author.name}@{this.state.author.host}</h2>

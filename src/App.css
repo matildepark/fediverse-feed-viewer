@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 html, body {
   background-color: #fff;
   line-height: 1.5;
@@ -8,7 +10,7 @@ html, body {
 
 .feedContainer, .homeContainer {
   background-color: #fff;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,6 +18,7 @@ html, body {
   color: #181818;
   margin: 0 auto;
   font-size: calc(10px + 1vmin);
+  letter-spacing: -0.017em;
 }
 
 .homeContainer .header {
@@ -27,10 +30,20 @@ html, body {
   min-height: 175px;
 }
 
+.feedContainer .breadCrumbs {
+    margin-top: 1.5vh;
+    font-size: 0.7em;
+    font-feature-settings: "calt" 1;
+    letter-spacing: -0.006em;
+}
+.feedContainer .breadCrumbs a {
+  color: black;
+}
+
 .feedContainer .header {
+  margin-top: 0.5vh;
   background-color: #F0F1F1;
   width: 100%;
-  margin-top: 2vh;
   margin-bottom: 5vh;
   line-height: 0;
   min-height: 175px;
@@ -39,6 +52,7 @@ html, body {
 .homeContainer .header h2 {
   font-size: calc(10px + 4vmin);
   text-align: center;
+  letter-spacing: -0.021em;
   margin: 2em auto 2em auto;
 }
 
@@ -53,7 +67,7 @@ html, body {
 }
 
 .feedContainer .header h2 {
-  font-size: calc(10px + 4vmin);
+  font-size: calc(10px + 3vmin);
   display: inline-block;
   margin: 0;
 }
@@ -134,7 +148,7 @@ footer a:hover {
     margin-right: 0.5em;
   }
   .feedContainer .header h2 {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 
