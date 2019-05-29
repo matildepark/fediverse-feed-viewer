@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Redirect
-} from 'react-router-dom';
+} from 'react-router-dom'
+
 
 export class Home extends Component {
   constructor() {

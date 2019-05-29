@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import ReactSafeHtml from 'react-safe-html/lib/index.js';
+import React, { Component } from 'react'
+import X2JS from 'x2js'
+import ReactSafeHtml from 'react-safe-html/lib/index.js'
 
 var components = ReactSafeHtml.components.makeElements({});
 components.br = ReactSafeHtml.components.createSimpleElement('br', {
@@ -7,6 +8,8 @@ components.br = ReactSafeHtml.components.createSimpleElement('br', {
     placeholder: true,
     'tab-index': (index) => ['tabIndex', index],
 })
+
+const x2js = new X2JS()
 
 class Feed extends Component {
     constructor() {
@@ -32,32 +35,35 @@ class Feed extends Component {
         var request = new XMLHttpRequest();
         request.onreadystatechange = () => {
             if (request.readyState === 4 && request.status === 200) {
-                var feedJson = JSON.parse(request.responseText);
+                let feedJson = x2js.xml2js(request.responseText)
+                console.log(feedJson)
                 // We want their root domain so we can show their place on the fediverse.
-                let fullUrl = feedJson.feed.url;
+                let fullUrl = feedJson.feed.author.uri;
                 let hostNameRegExp = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/i;
                 let hostname = fullUrl.match(hostNameRegExp);
                 // Set author's data in state
                 this.setState({
                     author: {
-                        name: feedJson.feed.author,
-                        avatar: feedJson.feed.image,
-                        host: hostname
+                        name: feedJson.feed.author.name,
+                        avatar: feedJson.feed.logo,
+                        host: hostname[0]
                     }
                 })
                 // Feed content
-                for (let item in feedJson.items) {
+                for (let item in feedJson.feed.entry) {
+                    if (feedJson.feed.entry[item].content == "An object was deleted") continue
                     let a = this.state.feed.slice();
                     a[item] = {
-                        content: feedJson.items[item].content,
-                        date: feedJson.items[item].pubDate,
-                        url: feedJson.items[item].link
+                        content: feedJson.feed.entry[item].content,
+                        date: feedJson.feed.entry[item].published,
+                        url: feedJson.feed.entry[item].link
                     };
+                    console.log(a)
                     this.setState({feed: a});
                 }
             }
         }
-        request.open("GET", "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2F"+ this.hosters +"%2Fusers%2F"+ this.username +".atom", true);
+        request.open("GET", "https://"+ this.hosters +"/users/"+ this.username +".atom", true);
         request.send();
     }
 
