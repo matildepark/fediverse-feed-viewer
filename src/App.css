@@ -1,5 +1,7 @@
 @import url('https://rsms.me/inter/inter.css');
 
+/* Scaffold. */
+
 html, body {
   background-color: #fff;
   line-height: 1.5;
@@ -7,6 +9,8 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   cursor: default;
 }
+
+/* Common template */
 
 .feedContainer, .homeContainer {
   background-color: #fff;
@@ -21,29 +25,16 @@ html, body {
   letter-spacing: -0.017em;
 }
 
+/* Homepage */
+
+.homeContainer {
+  transition: opacity 1s ease;
+}
+
 .homeContainer .header {
   background-color: #F0F1F1;
   width: 100%;
   margin-top: 2vh;
-  margin-bottom: 5vh;
-  line-height: 0;
-  min-height: 175px;
-}
-
-.feedContainer .breadCrumbs {
-    margin-top: 1.5vh;
-    font-size: 0.7em;
-    font-feature-settings: "calt" 1;
-    letter-spacing: -0.006em;
-}
-.feedContainer .breadCrumbs a {
-  color: black;
-}
-
-.feedContainer .header {
-  margin-top: 0.5vh;
-  background-color: #F0F1F1;
-  width: 100%;
   margin-bottom: 5vh;
   line-height: 0;
   min-height: 175px;
@@ -66,13 +57,31 @@ html, body {
   padding-bottom: 1em;
 }
 
+/* Profile page */
+
+.feedContainer {
+  opacity: 0;
+  animation: fadeIn 1s ease;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+.feedContainer .header {
+  margin-top: 0.5vh;
+  background-color: #F0F1F1;
+  width: 100%;
+  margin-bottom: 5vh;
+  line-height: 0;
+  min-height: 175px;
+}
+
 .feedContainer .header h2 {
   font-size: calc(10px + 3vmin);
   display: inline-block;
   margin: 0;
 }
 
-.header img {
+.feedContainer .header img {
   max-width: 175px;
   margin-right: 1em;
 }
@@ -90,6 +99,7 @@ html, body {
   padding: 0.1em;
   color: #181818;
 }
+
 .feedContainer .post a:hover {
   text-decoration: underline;
 }
@@ -104,8 +114,31 @@ html, body {
   text-decoration: underline;
 }
 
-.App-link {
-  color: #61dafb;
+/* Navigation */
+
+.feedContainer .breadCrumbs {
+    margin-top: 1.5vh;
+    font-size: 0.7em;
+    font-feature-settings: "calt" 1;
+    letter-spacing: -0.006em;
+}
+.feedContainer .breadCrumbs a {
+  color: black;
+}
+
+/* Utility */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade {
+  opacity: 0;
 }
 
 input[type=text] {
@@ -116,11 +149,13 @@ input[type=text] {
   font-size: calc(10px + 1vmin);
   height: 24px;
 }
+
 footer {
   color: black;
   margin-top: 1em;
   text-align: right;
 }
+
 footer a {
   color: black;
   background: yellow;
@@ -128,9 +163,12 @@ footer a {
   cursor: pointer;
   text-decoration: none;
 }
+
 footer a:hover {
   text-decoration: underline;
 }
+
+/* iPad */
 
 @media all and (min-width: 481px) and (max-width: 1024px) {
   .feedContainer {
@@ -151,6 +189,8 @@ footer a:hover {
     font-size: 18px;
   }
 }
+
+/* Mobile */
 
 @media all and (max-width: 480px) {
   .feedContainer {

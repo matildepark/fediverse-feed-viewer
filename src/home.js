@@ -18,13 +18,18 @@ export class Home extends Component {
   keyPress(e) {
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.setState({username: e.target.value, usernameSubmitted: true});
+      let home = document.getElementsByClassName("homeContainer")[0]
+      home.classList.add("fade")
+      this.setState({username: e.target.value})
+      setTimeout(() => {
+        this.setState({usernameSubmitted: true })
+      }, 2000)
     }
   }
 
   render() {
     if (this.state.usernameSubmitted === true) {
-      return <Redirect to={"/" + this.state.username}/>
+      return <Redirect to={"/" + this.state.username} />
     }
     return (
       <Router>
