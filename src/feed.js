@@ -59,7 +59,7 @@ class Feed extends Component {
                     a[item] = {
                         content: feedJson.feed.entry[item].content.toString(),
                         date: postDate.toString(),
-                        url: feedJson.feed.entry[item].link
+                        url: feedJson.feed.entry[item].link[2]._href
                     };
                     this.setState({feed: a});
                 }
