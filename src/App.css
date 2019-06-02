@@ -96,6 +96,11 @@ p {
   margin: 2em auto 2em auto;
 }
 
+.homeContainer h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 .homeContainer p:first-of-type {
   border-top: 1px solid #999;
   padding-top: 1em;
